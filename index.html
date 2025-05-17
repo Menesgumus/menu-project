@@ -1,0 +1,1346 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lezzet Durağı</title>
+    <meta name="description" content="Lezzet Durağı - Eşsiz lezzetlerin adresi. Türk mutfağının en seçkin lezzetleri.">
+    <meta name="keywords" content="restoran, yemek, lezzet durağı, türk mutfağı, ana yemekler, tatlılar, içecekler">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#2c3e50">
+    <link rel="apple-touch-icon" href="logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            /* Aydınlık Mod Renkleri */
+            --primary-color: #2c3e50;
+            --secondary-color: #e74c3c;
+            --accent-color: #f1c40f;
+            --text-color: #2c3e50;
+            --light-bg: #f5f7fa;
+            --card-bg: #ffffff;
+            --border-color: #e1e1e1;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+            --nav-bg: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+        }
+
+        [data-theme="dark"] {
+            /* Karanlık Mod Renkleri */
+            --primary-color: #3498db;
+            --secondary-color: #e74c3c;
+            --accent-color: #f1c40f;
+            --text-color: #ecf0f1;
+            --light-bg: #1a1a1a;
+            --card-bg: #2c2c2c;
+            --border-color: #404040;
+            --shadow-color: rgba(0, 0, 0, 0.3);
+            --nav-bg: linear-gradient(to right, #1a1a1a, #2c2c2c);
+        }
+
+        body {
+            background: var(--light-bg);
+            color: var(--text-color);
+            transition: background-color 0.3s ease, color 0.3s ease;
+            min-height: 100vh;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+                        url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3') center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 2rem;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: var(--secondary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .navbar {
+            background: var(--nav-bg);
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-decoration: none;
+        }
+
+        .logo-image {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--accent-color);
+        }
+
+        .logo {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* Mobil Menü Stilleri */
+        .hamburger {
+            display: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 10000;
+        }
+
+        /* Yemekler Bölümü Stilleri */
+        .menu-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .menu-title {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 2rem;
+            font-size: 2.5rem;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .menu-item {
+            background: var(--card-bg);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            border: 1px solid var(--border-color);
+        }
+
+        .menu-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .menu-item-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .menu-item:hover .menu-item-image {
+            transform: scale(1.1);
+        }
+
+        .menu-item-content {
+            padding: 2rem;
+            background: var(--card-bg);
+        }
+
+        .menu-item-title {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .menu-item-price {
+            color: var(--secondary-color);
+            font-weight: bold;
+            font-size: 1.3rem;
+        }
+
+        .menu-item-description {
+            color: var(--text-color);
+            opacity: 0.8;
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .menu-item-tags {
+            display: flex;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background: var(--light-bg);
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            color: var(--text-color);
+            transition: all 0.3s ease;
+        }
+
+        .tag:hover {
+            background: var(--secondary-color);
+            color: white;
+        }
+
+        /* Popüler Yemekler Bölümü Stilleri */
+        .popular-section {
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 2rem;
+            font-size: 2rem;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: var(--secondary-color);
+            border-radius: 3px;
+        }
+
+        .popular-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .popular-item {
+            position: relative;
+            background: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px var(--shadow-color);
+            transition: transform 0.3s ease;
+            border: 1px solid var(--border-color);
+        }
+
+        .popular-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .popular-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--secondary-color);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            z-index: 1;
+        }
+
+        .popular-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .popular-content {
+            padding: 1.5rem;
+            text-align: center;
+            background: var(--card-bg);
+        }
+
+        .popular-content h3 {
+            color: var(--text-color);
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .popular-content p {
+            color: var(--text-color);
+            opacity: 0.8;
+            margin-bottom: 1rem;
+        }
+
+        .popular-price {
+            color: var(--secondary-color);
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        /* Animasyonlar */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fadeInUp {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        /* Responsive Tasarım İyileştirmeleri */
+        @media screen and (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .menu-grid {
+                grid-template-columns: 1fr;
+                padding: 1rem;
+            }
+
+            .menu-item {
+                margin-bottom: 2rem;
+            }
+
+            .logo-image {
+                width: 35px;
+                height: 35px;
+            }
+            
+            .logo {
+                font-size: 1.2rem;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100vh;
+                background: var(--nav-bg);
+                flex-direction: column;
+                align-items: center;
+                padding: 2rem;
+                transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                z-index: 2000;
+                gap: 0;
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+
+            .nav-links li {
+                width: 100%;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                transition: all 0.3s ease;
+            }
+
+            .nav-links li:last-child {
+                border-bottom: none;
+            }
+
+            .nav-links a {
+                font-size: 1.2rem;
+                padding: 1.5rem;
+                width: 100%;
+                text-align: center;
+                justify-content: center;
+                border-radius: 12px;
+                margin: 4px 8px;
+                transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+
+            .nav-links a:hover {
+                background: rgba(255, 255, 255, 0.15);
+                transform: translateY(-2px);
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            }
+
+            .nav-links a:active {
+                transform: translateY(0);
+                transition: all 0.2s ease;
+            }
+
+            .hamburger {
+                display: block;
+                color: white;
+                font-size: 1.5rem;
+                cursor: pointer;
+                z-index: 2001;
+            }
+
+            .hero {
+                height: 60vh;
+                padding: 1rem;
+            }
+
+            .hero-content {
+                padding: 1rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .restaurant-info {
+                margin: 1rem;
+                padding: 1rem;
+            }
+
+            .restaurant-header {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
+
+            .restaurant-logo {
+                width: 120px;
+                height: 120px;
+            }
+
+            .restaurant-name {
+                font-size: 1.8rem;
+            }
+
+            .restaurant-contact {
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+            }
+
+            .contact-item {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .menu-container {
+                padding: 1rem;
+            }
+
+            .category-filter {
+                flex-wrap: wrap;
+                gap: 0.5rem;
+                padding: 0.5rem;
+            }
+
+            .category-btn {
+                padding: 0.6rem 1rem;
+                font-size: 0.9rem;
+                flex: 1 1 calc(50% - 0.5rem);
+                text-align: center;
+            }
+
+            .menu-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .menu-item {
+                margin-bottom: 1rem;
+            }
+
+            .menu-item-image {
+                height: 200px;
+            }
+
+            .menu-item-content {
+                padding: 1rem;
+            }
+
+            .menu-item-title {
+                font-size: 1.2rem;
+            }
+
+            .menu-item-description {
+                font-size: 0.9rem;
+            }
+
+            .tag {
+                font-size: 0.8rem;
+                padding: 0.3rem 0.8rem;
+            }
+
+            .popular-section {
+                margin: 1rem 0;
+            }
+
+            .popular-items {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .popular-item {
+                margin-bottom: 1rem;
+            }
+
+            .popular-image {
+                height: 200px;
+            }
+
+            .qr-section {
+                margin: 1rem;
+                padding: 1rem;
+            }
+
+            .qr-code {
+                width: 150px;
+                height: 150px;
+            }
+
+            /* Dokunmatik Cihazlar için İyileştirmeler */
+            @media (hover: none) {
+                .category-btn:active {
+                    background: var(--secondary-color);
+                    color: white;
+                }
+
+                .menu-item:active {
+                    transform: scale(0.98);
+                }
+
+                .nav-links a:active {
+                    background: rgba(255, 255, 255, 0.1);
+                    border-radius: 5px;
+                }
+            }
+
+            /* Küçük Ekranlar için Ek İyileştirmeler */
+            @media screen and (max-width: 480px) {
+                .hero h1 {
+                    font-size: 1.8rem;
+                }
+
+                .restaurant-name {
+                    font-size: 1.5rem;
+                }
+
+                .menu-item-title {
+                    font-size: 1.1rem;
+                }
+
+                .category-btn {
+                    flex: 1 1 100%;
+                }
+
+                .contact-item {
+                    font-size: 0.9rem;
+                }
+            }
+        }
+
+        /* Tema Değiştirme Butonu */
+        .theme-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 10px var(--shadow-color);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        .theme-toggle i {
+            font-size: 1.5rem;
+            color: var(--text-color);
+        }
+
+        /* Mobil Uyumluluk için Tema Değiştirme Butonu */
+        @media screen and (max-width: 768px) {
+            .theme-toggle {
+                bottom: 70px;
+                right: 20px;
+            }
+        }
+
+        /* Masaüstü İyileştirmeleri */
+        @media screen and (min-width: 1024px) {
+            .nav-container {
+                max-width: 1400px;
+                padding: 0 2rem;
+            }
+
+            .nav-links {
+                display: flex;
+                gap: 3rem;
+            }
+
+            .hamburger {
+                display: none;
+            }
+
+            .nav-links a {
+                font-size: 1.1rem;
+                position: relative;
+            }
+
+            .nav-links a::after {
+                content: '';
+                position: absolute;
+                bottom: -5px;
+                left: 0;
+                width: 0;
+                height: 2px;
+                background: var(--accent-color);
+                transition: width 0.3s ease;
+            }
+
+            .nav-links a:hover::after {
+                width: 100%;
+            }
+
+            .hero {
+                height: 80vh;
+            }
+
+            .hero-content {
+                max-width: 1000px;
+            }
+
+            .hero h1 {
+                font-size: 4rem;
+            }
+
+            .hero p {
+                font-size: 1.4rem;
+            }
+
+            .restaurant-info {
+                max-width: 1400px;
+                margin: 3rem auto;
+                padding: 3rem;
+            }
+
+            .restaurant-header {
+                gap: 3rem;
+            }
+
+            .restaurant-logo {
+                width: 200px;
+                height: 200px;
+            }
+
+            .restaurant-name {
+                font-size: 3rem;
+            }
+
+            .restaurant-description {
+                font-size: 1.2rem;
+                max-width: 800px;
+            }
+
+            .restaurant-contact {
+                gap: 3rem;
+            }
+
+            .menu-container {
+                max-width: 1400px;
+                padding: 0 2rem;
+            }
+
+            .menu-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 2rem;
+            }
+
+            .menu-item {
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+            }
+
+            .menu-item:hover {
+                transform: translateY(-10px);
+                box-shadow: 0 20px 40px var(--shadow-color);
+            }
+
+            .menu-item-image {
+                height: 300px;
+            }
+
+            .menu-item-content {
+                padding: 2rem;
+            }
+
+            .menu-item-title {
+                font-size: 1.8rem;
+            }
+
+            .menu-item-description {
+                font-size: 1.1rem;
+            }
+
+            .category-filter {
+                margin: 3rem 0;
+                gap: 1.5rem;
+            }
+
+            .category-btn {
+                padding: 1rem 2rem;
+                font-size: 1.1rem;
+                transition: all 0.3s ease;
+            }
+
+            .category-btn:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 5px 15px var(--shadow-color);
+            }
+
+            .popular-section {
+                margin: 4rem 0;
+            }
+
+            .popular-items {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 2rem;
+            }
+
+            .popular-item {
+                transition: transform 0.3s ease;
+            }
+
+            .popular-item:hover {
+                transform: translateY(-10px);
+            }
+
+            .popular-image {
+                height: 350px;
+            }
+
+            .qr-section {
+                max-width: 400px;
+                margin: 4rem auto;
+                padding: 3rem;
+            }
+
+            .qr-code {
+                width: 250px;
+                height: 250px;
+            }
+
+            /* Tema Değiştirme Butonu Masaüstü */
+            .theme-toggle {
+                width: 60px;
+                height: 60px;
+                bottom: 30px;
+                right: 30px;
+            }
+
+            .theme-toggle i {
+                font-size: 1.8rem;
+            }
+
+            .theme-toggle:hover {
+                transform: scale(1.1) rotate(180deg);
+            }
+
+            /* Hover Efektleri */
+            .cta-button:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 20px var(--shadow-color);
+            }
+
+            .tag:hover {
+                transform: translateY(-2px);
+            }
+
+            /* Scroll Bar Özelleştirme */
+            ::-webkit-scrollbar {
+                width: 12px;
+            }
+
+            ::-webkit-scrollbar-track {
+                background: var(--light-bg);
+            }
+
+            ::-webkit-scrollbar-thumb {
+                background: var(--primary-color);
+                border-radius: 6px;
+            }
+
+            ::-webkit-scrollbar-thumb:hover {
+                background: var(--secondary-color);
+            }
+        }
+
+        /* Geniş Ekranlar için Ek İyileştirmeler */
+        @media screen and (min-width: 1440px) {
+            .menu-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            .popular-items {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            .hero h1 {
+                font-size: 4.5rem;
+            }
+        }
+
+        /* Animasyon İyileştirmeleri */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fadeInUp {
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        /* Geçiş Efektleri */
+        .menu-item, .popular-item, .category-btn, .theme-toggle {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .back-button {
+            position: fixed;
+            top: 90px;
+            left: 20px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 10px var(--shadow-color);
+            z-index: 1000;
+            transition: all 0.3s ease;
+            color: var(--text-color);
+            text-decoration: none;
+        }
+
+        .back-button:hover {
+            transform: scale(1.1);
+            background: var(--secondary-color);
+            color: white;
+        }
+
+        /* Mobil Uyumluluk için Geri Dönüş Butonu */
+        @media screen and (max-width: 768px) {
+            .back-button {
+                top: 85px;
+                left: 15px;
+                width: 40px;
+                height: 40px;
+            }
+        }
+
+        /* Masaüstü İyileştirmeleri için Geri Dönüş Butonu */
+        @media screen and (min-width: 1024px) {
+            .back-button {
+                top: 95px;
+                left: 25px;
+                width: 50px;
+                height: 50px;
+            }
+        }
+
+        /* Offline Mod Stilleri */
+        .offline .menu-item {
+            opacity: 0.8;
+        }
+
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--secondary-color);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 5px;
+            z-index: 10000;
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from { transform: translate(-50%, 100%); }
+            to { transform: translate(-50%, 0); }
+        }
+
+        .qr-section, .qr-title, .qr-description, .qr-code, .qr-text {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- Ana İçerik -->
+    <main id="main-content" tabindex="-1">
+        <nav class="navbar">
+            <div class="nav-container">
+                <a href="index.html" class="logo-container">
+                    <img src="https://cdn-icons-png.flaticon.com/512/1046/1046874.png" alt="Lezzet Durağı Logo" class="logo-image">
+                    <span class="logo">Lezzet Durağı</span>
+                </a>
+                <div class="hamburger">
+                    <i class="fas fa-bars"></i>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="index.html"><i class="fas fa-home"></i> Ana Sayfa</a></li>
+                    <li><a href="yemekler.html"><i class="fas fa-utensils"></i> Yemekler</a></li>
+                    <li><a href="hakkimizda.html"><i class="fas fa-info-circle"></i> Hakkımızda</a></li>
+                    <li><a href="iletisim.html"><i class="fas fa-phone"></i> İletişim</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <section class="hero">
+            <div class="hero-content" data-aos="fade-up">
+                <h1>Lezzet Durağı</h1>
+                <p>Eşsiz lezzetlerin adresi</p>
+                <a href="yemekler.html" class="cta-button">Menüyü Keşfet</a>
+            </div>
+        </section>
+
+        <div class="restaurant-info">
+            <div class="restaurant-header">
+                <img src="https://cdn-icons-png.flaticon.com/512/1046/1046874.png" alt="Lezzet Durağı Logo" class="restaurant-logo">
+                <div class="restaurant-details">
+                    <h1 class="restaurant-name">Lezzet Durağı</h1>
+                    <p class="restaurant-description">2010'dan beri hizmetinizdeyiz. En taze malzemelerle hazırlanan, eşsiz lezzetler sizi bekliyor.</p>
+                    <div class="restaurant-contact">
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <span>0212 123 45 67</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Örnek Mahallesi, Lezzet Sokak No:1</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-clock"></i>
+                            <span>Her gün 09:00 - 22:00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="menu-container">
+            <div class="popular-section">
+                <h2 class="section-title">Popüler Yemeklerimiz</h2>
+                <div class="popular-items">
+                    <div class="popular-item">
+                        <img src="https://images.unsplash.com/photo-1544025162-d76694265947" alt="Izgara Köfte" class="popular-image">
+                        <div class="popular-content">
+                            <h3>Izgara Köfte</h3>
+                            <p>Özel baharatlarla hazırlanan, közde pişirilen nefis köfte</p>
+                            <span class="popular-price">₺150</span>
+                        </div>
+                    </div>
+                    <div class="popular-item">
+                        <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38" alt="Karışık Pizza" class="popular-image">
+                        <div class="popular-content">
+                            <h3>Karışık Pizza</h3>
+                            <p>Özel sos ve bol malzemeli nefis pizza</p>
+                            <span class="popular-price">₺120</span>
+                        </div>
+                    </div>
+                    <div class="popular-item">
+                        <img src="https://images.unsplash.com/photo-1551024506-0bccd828d307" alt="Tiramisu" class="popular-image">
+                        <div class="popular-content">
+                            <h3>Tiramisu</h3>
+                            <p>İtalyan usulü hazırlanan nefis tatlı</p>
+                            <span class="popular-price">₺65</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-grid">
+                <div class="menu-item">
+                    <img src="https://images.unsplash.com/photo-1544025162-d76694265947" alt="Izgara Köfte" class="menu-item-image">
+                    <div class="menu-item-content">
+                        <div class="menu-item-title">
+                            <span>Izgara Köfte</span>
+                            <span class="menu-item-price">₺150</span>
+                        </div>
+                        <p class="menu-item-description">Özel baharatlarla hazırlanan, közde pişirilen nefis köfte.</p>
+                        <div class="menu-item-tags">
+                            <span class="tag">Türk Mutfağı</span>
+                            <span class="tag">Izgara</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-item">
+                    <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38" alt="Karışık Pizza" class="menu-item-image">
+                    <div class="menu-item-content">
+                        <div class="menu-item-title">
+                            <span>Karışık Pizza</span>
+                            <span class="menu-item-price">₺120</span>
+                        </div>
+                        <p class="menu-item-description">Özel sos, mozarella peyniri, mantar, biber, sosis ve zeytin ile hazırlanan nefis pizza.</p>
+                        <div class="menu-item-tags">
+                            <span class="tag">İtalyan</span>
+                            <span class="tag">Fırında</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-item">
+                    <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd" alt="Cheese Burger" class="menu-item-image">
+                    <div class="menu-item-content">
+                        <div class="menu-item-title">
+                            <span>Cheese Burger</span>
+                            <span class="menu-item-price">₺85</span>
+                        </div>
+                        <p class="menu-item-description">Dana eti, cheddar peyniri, marul, domates ve özel sos ile hazırlanan burger.</p>
+                        <div class="menu-item-tags">
+                            <span class="tag">Fast Food</span>
+                            <span class="tag">Izgara</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-item">
+                    <img src="https://images.unsplash.com/photo-1551024506-0bccd828d307" alt="Tiramisu" class="menu-item-image">
+                    <div class="menu-item-content">
+                        <div class="menu-item-title">
+                            <span>Tiramisu</span>
+                            <span class="menu-item-price">₺65</span>
+                        </div>
+                        <p class="menu-item-description">İtalyan usulü hazırlanan, kahve ve mascarpone peyniri ile yapılan nefis tatlı.</p>
+                        <div class="menu-item-tags">
+                            <span class="tag">Tatlı</span>
+                            <span class="tag">İtalyan</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="qr-section">
+            <h3>Menüyü Telefonunuzda Görüntüleyin</h3>
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://example.com/menu" alt="QR Kod" class="qr-code">
+            <p class="qr-text">QR kodu okutarak menüyü telefonunuzda görüntüleyebilirsiniz</p>
+        </div>
+
+        <!-- Tema Değiştirme Butonu -->
+        <button class="theme-toggle" aria-label="Tema Değiştir">
+            <i class="fas fa-moon"></i>
+        </button>
+    </main>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // AOS Animasyon Kütüphanesi Başlatma
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+
+        // Mobil Menü
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+        const body = document.body;
+
+        hamburger.addEventListener('click', (e) => {
+            e.stopPropagation();
+            navLinks.classList.toggle('active');
+            hamburger.querySelector('i').classList.toggle('fa-bars');
+            hamburger.querySelector('i').classList.toggle('fa-times');
+            body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
+        });
+
+        // Menü dışına tıklandığında menüyü kapat
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.nav-container') && navLinks.classList.contains('active')) {
+                navLinks.classList.remove('active');
+                hamburger.querySelector('i').classList.add('fa-bars');
+                hamburger.querySelector('i').classList.remove('fa-times');
+                body.style.overflow = '';
+            }
+        });
+
+        // Sayfa kaydırıldığında menüyü kapat
+        window.addEventListener('scroll', () => {
+            if (navLinks.classList.contains('active')) {
+                navLinks.classList.remove('active');
+                hamburger.querySelector('i').classList.add('fa-bars');
+                hamburger.querySelector('i').classList.remove('fa-times');
+                body.style.overflow = '';
+            }
+        });
+
+        // Menüyü Keşfet butonu için event listener
+        document.querySelector('.cta-button').addEventListener('click', (e) => {
+            e.preventDefault();
+            window.location.href = 'yemekler.html';
+        });
+
+        // Sayfa yüklendiğinde animasyonları başlat
+        window.addEventListener('load', () => {
+            document.querySelectorAll('.menu-item').forEach((item, index) => {
+                item.style.animationDelay = `${index * 0.1}s`;
+                item.classList.add('animate-fadeInUp');
+            });
+        });
+
+        // Kategori Filtreleme
+        const categoryButtons = document.querySelectorAll('.category-btn');
+        const menuItems = document.querySelectorAll('.menu-item');
+
+        categoryButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Aktif buton stilini güncelle
+                categoryButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+
+                // Menü öğelerini filtrele
+                const category = button.textContent.toLowerCase();
+                menuItems.forEach(item => {
+                    if (category === 'tümü') {
+                        item.style.display = 'block';
+                    } else {
+                        const itemCategory = item.querySelector('.tag').textContent.toLowerCase();
+                        item.style.display = itemCategory.includes(category) ? 'block' : 'none';
+                    }
+                });
+            });
+        });
+
+        // QR Kod Oluşturma
+        function generateQRCode(restaurantId) {
+            const baseUrl = window.location.origin;
+            const qrUrl = `${baseUrl}/menu?restaurant=${restaurantId}`;
+            const qrImage = document.querySelector('.qr-code');
+            qrImage.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(qrUrl)}`;
+        }
+
+        // Sayfa yüklendiğinde QR kodu oluştur
+        window.addEventListener('load', () => {
+            generateQRCode('lezzet-duragi-1');
+        });
+
+        // Tema Değiştirme Fonksiyonları
+        const themeToggle = document.querySelector('.theme-toggle');
+        const themeIcon = themeToggle.querySelector('i');
+        const html = document.documentElement;
+
+        // Sistem temasını kontrol et
+        function checkSystemTheme() {
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                setTheme('dark');
+            } else {
+                setTheme('light');
+            }
+        }
+
+        // Tema değiştirme fonksiyonu
+        function setTheme(theme) {
+            html.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+            
+            // İkon güncelleme
+            if (theme === 'dark') {
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            } else {
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+            }
+        }
+
+        // Tema değiştirme butonu tıklama olayı
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            setTheme(newTheme);
+        });
+
+        // Sayfa yüklendiğinde tema kontrolü
+        window.addEventListener('load', () => {
+            // Önce localStorage'dan tema kontrolü
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme) {
+                setTheme(savedTheme);
+            } else {
+                // Yoksa sistem temasını kontrol et
+                checkSystemTheme();
+            }
+        });
+
+        // Sistem teması değişikliğini dinle
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+            if (!localStorage.getItem('theme')) {
+                setTheme(e.matches ? 'dark' : 'light');
+            }
+        });
+
+        // Masaüstü için Ek Özellikler
+        document.addEventListener('DOMContentLoaded', () => {
+            // Scroll Animasyonu
+            const observerOptions = {
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate-fadeInUp');
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.menu-item, .popular-item').forEach(item => {
+                observer.observe(item);
+            });
+
+            // Hover Efektleri için Touch Cihaz Kontrolü
+            const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+            if (!isTouchDevice) {
+                document.querySelectorAll('.menu-item, .popular-item').forEach(item => {
+                    item.addEventListener('mouseenter', () => {
+                        item.style.transform = 'translateY(-10px)';
+                    });
+                    item.addEventListener('mouseleave', () => {
+                        item.style.transform = 'translateY(0)';
+                    });
+                });
+            }
+        });
+
+        // Service Worker Kaydı
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(registration => {
+                        console.log('ServiceWorker başarıyla kaydedildi:', registration.scope);
+                    })
+                    .catch(error => {
+                        console.log('ServiceWorker kaydı başarısız:', error);
+                    });
+            });
+        }
+
+        // Offline Durum Kontrolü
+        window.addEventListener('online', () => {
+            document.body.classList.remove('offline');
+            showNotification('İnternet bağlantısı sağlandı');
+        });
+
+        window.addEventListener('offline', () => {
+            document.body.classList.add('offline');
+            showNotification('İnternet bağlantısı kesildi - Offline mod aktif');
+        });
+
+        // Bildirim Gösterme Fonksiyonu
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            setTimeout(() => notification.remove(), 3000);
+        }
+    </script>
+</body>
+</html> 

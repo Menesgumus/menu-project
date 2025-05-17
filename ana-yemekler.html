@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ana Yemekler - Lezzet Durağı</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        /* Tema Değişkenleri */
+        :root {
+            /* Aydınlık Mod Renkleri */
+            --primary-color: #2c3e50;
+            --secondary-color: #e74c3c;
+            --accent-color: #f1c40f;
+            --text-color: #2c3e50;
+            --light-bg: #f5f7fa;
+            --card-bg: #ffffff;
+            --border-color: #e1e1e1;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+            --nav-bg: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+        }
+
+        [data-theme="dark"] {
+            /* Karanlık Mod Renkleri */
+            --primary-color: #3498db;
+            --secondary-color: #e74c3c;
+            --accent-color: #f1c40f;
+            --text-color: #ecf0f1;
+            --light-bg: #1a1a1a;
+            --card-bg: #2c2c2c;
+            --border-color: #404040;
+            --shadow-color: rgba(0, 0, 0, 0.3);
+            --nav-bg: linear-gradient(to right, #1a1a1a, #2c2c2c);
+        }
+
+        /* Genel Stiller */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: var(--light-bg);
+            color: var(--text-color);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Navigasyon */
+        .navbar {
+            background: var(--nav-bg);
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 10px var(--shadow-color);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Ana Yemekler Sayfası Stilleri */
+        .menu-page {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .page-title {
+            text-align: center;
+            color: var(--text-color);
+            margin-bottom: 3rem;
+            font-size: 2.5rem;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .menu-item {
+            background: var(--card-bg);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px var(--shadow-color);
+            transition: transform 0.3s ease;
+            border: 1px solid var(--border-color);
+        }
+
+        .menu-item:hover {
+            transform: translateY(-10px);
+        }
+
+        .menu-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .menu-content {
+            padding: 1.5rem;
+        }
+
+        .menu-title {
+            font-size: 1.5rem;
+            color: var(--text-color);
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .menu-price {
+            color: var(--secondary-color);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .menu-description {
+            color: var(--text-color);
+            opacity: 0.8;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .menu-details {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .detail-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-color);
+            opacity: 0.8;
+        }
+
+        .detail-item i {
+            color: var(--secondary-color);
+        }
+
+        /* Tema Değiştirme Butonu */
+        .theme-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 10px var(--shadow-color);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        .theme-toggle i {
+            font-size: 1.5rem;
+            color: var(--text-color);
+        }
+
+        /* Mobil Uyumluluk */
+        @media screen and (max-width: 768px) {
+            .nav-container {
+                padding: 0.5rem;
+            }
+
+            .hamburger {
+                display: block;
+                color: white;
+                font-size: 1.5rem;
+                cursor: pointer;
+                z-index: 2001;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100vh;
+                background: var(--nav-bg);
+                flex-direction: column;
+                align-items: center;
+                padding: 2rem;
+                transition: 0.3s ease;
+                z-index: 2000;
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+
+            .nav-links li {
+                margin: 1.5rem 0;
+                width: 100%;
+                text-align: center;
+            }
+
+            .nav-links a {
+                font-size: 1.2rem;
+                width: 100%;
+                justify-content: center;
+            }
+
+            .menu-page {
+                padding: 1rem;
+            }
+
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .theme-toggle {
+                bottom: 70px;
+                right: 20px;
+            }
+        }
+
+        /* Masaüstü İyileştirmeleri */
+        @media screen and (min-width: 1024px) {
+            .nav-links a {
+                font-size: 1.1rem;
+                position: relative;
+            }
+
+            .nav-links a::after {
+                content: '';
+                position: absolute;
+                bottom: -5px;
+                left: 0;
+                width: 0;
+                height: 2px;
+                background: var(--accent-color);
+                transition: width 0.3s ease;
+            }
+
+            .nav-links a:hover::after {
+                width: 100%;
+            }
+
+            .theme-toggle {
+                width: 60px;
+                height: 60px;
+                bottom: 30px;
+                right: 30px;
+            }
+
+            .theme-toggle:hover {
+                transform: scale(1.1) rotate(180deg);
+            }
+        }
+
+        /* Geri Dönüş Butonu Stilleri */
+        .back-button {
+            position: fixed;
+            top: 120px;
+            left: 20px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 10px var(--shadow-color);
+            z-index: 1000;
+            transition: all 0.3s ease;
+            color: var(--text-color);
+            text-decoration: none;
+        }
+
+        .back-button:hover {
+            transform: scale(1.1);
+            background: var(--secondary-color);
+            color: white;
+        }
+
+        /* Mobil Uyumluluk için Geri Dönüş Butonu */
+        @media screen and (max-width: 768px) {
+            .back-button {
+                top: 115px;
+                left: 15px;
+                width: 40px;
+                height: 40px;
+            }
+        }
+
+        /* Masaüstü İyileştirmeleri için Geri Dönüş Butonu */
+        @media screen and (min-width: 1024px) {
+            .back-button {
+                top: 125px;
+                left: 25px;
+                width: 50px;
+                height: 50px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="yemekler.html" class="back-button" aria-label="Geri Dön">
+        <i class="fas fa-arrow-left"></i>
+    </a>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">Lezzet Durağı</a>
+            <div class="hamburger">
+                <i class="fas fa-bars"></i>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html"><i class="fas fa-home"></i> Ana Sayfa</a></li>
+                <li><a href="yemekler.html"><i class="fas fa-utensils"></i> Yemekler</a></li>
+                <li><a href="hakkimizda.html"><i class="fas fa-info-circle"></i> Hakkımızda</a></li>
+                <li><a href="iletisim.html"><i class="fas fa-phone"></i> İletişim</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="menu-page">
+        <h1 class="page-title">Ana Yemekler</h1>
+
+        <div class="menu-grid">
+            <div class="menu-item" data-aos="fade-up">
+                <img src="https://images.unsplash.com/photo-1544025162-d76694265947" alt="Izgara Köfte" class="menu-image">
+                <div class="menu-content">
+                    <div class="menu-title">
+                        <span>Izgara Köfte</span>
+                        <span class="menu-price">₺120</span>
+                    </div>
+                    <p class="menu-description">Özel baharatlarla hazırlanan, közde pişirilen nefis köftemiz. Yanında pilav ve közlenmiş domates ile servis edilir.</p>
+                    <div class="menu-details">
+                        <div class="detail-item">
+                            <i class="fas fa-fire"></i>
+                            <span>Köfte</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-clock"></i>
+                            <span>20 dk</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item" data-aos="fade-up" data-aos-delay="100">
+                <img src="https://images.unsplash.com/photo-1544025162-d76694265947" alt="Izgara Köfte" class="menu-image">
+                <div class="menu-content">
+                    <div class="menu-title">
+                        <span>Adana Kebap</span>
+                        <span class="menu-price">₺150</span>
+                    </div>
+                    <p class="menu-description">Zırh ile çekilmiş et ve özel baharatlarla hazırlanan, közde pişirilen Adana kebap. Yanında pilav ve közlenmiş domates ile servis edilir.</p>
+                    <div class="menu-details">
+                        <div class="detail-item">
+                            <i class="fas fa-fire"></i>
+                            <span>Kebap</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-clock"></i>
+                            <span>25 dk</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item" data-aos="fade-up" data-aos-delay="200">
+                <img src="https://images.unsplash.com/photo-1544025162-d76694265947" alt="Izgara Köfte" class="menu-image">
+                <div class="menu-content">
+                    <div class="menu-title">
+                        <span>Pide</span>
+                        <span class="menu-price">₺80</span>
+                    </div>
+                    <p class="menu-description">El açması hamur ile hazırlanan, kıymalı, kaşarlı veya kuşbaşılı seçenekleriyle sunulan pide. Yanında ayran ile servis edilir.</p>
+                    <div class="menu-details">
+                        <div class="detail-item">
+                            <i class="fas fa-fire"></i>
+                            <span>Pide</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-clock"></i>
+                            <span>15 dk</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item" data-aos="fade-up" data-aos-delay="300">
+                <img src="https://images.unsplash.com/photo-1544025162-d76694265947" alt="Izgara Köfte" class="menu-image">
+                <div class="menu-content">
+                    <div class="menu-title">
+                        <span>Tavuk Şiş</span>
+                        <span class="menu-price">₺95</span>
+                    </div>
+                    <p class="menu-description">Izgara tavuk şiş, yanında pilav ve közlenmiş biber ile servis edilir.</p>
+                    <div class="menu-details">
+                        <div class="detail-item">
+                            <i class="fas fa-drumstick-bite"></i>
+                            <span>Tavuk</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-clock"></i>
+                            <span>18 dk</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item" data-aos="fade-up" data-aos-delay="400">
+                <img src="https://images.unsplash.com/photo-1544025162-d76694265947" alt="Izgara Köfte" class="menu-image">
+                <div class="menu-content">
+                    <div class="menu-title">
+                        <span>Lahmacun</span>
+                        <span class="menu-price">₺45</span>
+                    </div>
+                    <p class="menu-description">İncecik hamur üzerine özel harç ile hazırlanan lahmacun. Yanında bol yeşillik ile servis edilir.</p>
+                    <div class="menu-details">
+                        <div class="detail-item">
+                            <i class="fas fa-bread-slice"></i>
+                            <span>Lahmacun</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-clock"></i>
+                            <span>12 dk</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item" data-aos="fade-up" data-aos-delay="500">
+                <img src="https://images.unsplash.com/photo-1544025162-d76694265947" alt="Izgara Köfte" class="menu-image">
+                <div class="menu-content">
+                    <div class="menu-title">
+                        <span>Mantı</span>
+                        <span class="menu-price">₺70</span>
+                    </div>
+                    <p class="menu-description">Geleneksel Türk mantısı, yoğurt ve tereyağlı sos ile servis edilir.</p>
+                    <div class="menu-details">
+                        <div class="detail-item">
+                            <i class="fas fa-bowl-food"></i>
+                            <span>Mantı</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-clock"></i>
+                            <span>20 dk</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item" data-aos="fade-up" data-aos-delay="300">
+                <img src="https://images.unsplash.com/photo-1502741338009-cac2772e18bc" alt="Kuzu Tandır" class="menu-image">
+                <div class="menu-content">
+                    <div class="menu-title">
+                        <span>Kuzu Tandır</span>
+                        <span class="menu-price">₺180</span>
+                    </div>
+                    <p class="menu-description">Uzun süre fırında pişirilmiş, lokum gibi yumuşak kuzu eti. Yanında pilav ile servis edilir.</p>
+                    <div class="menu-details">
+                        <div class="detail-item">
+                            <i class="fas fa-drumstick-bite"></i>
+                            <span>Kuzu</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-clock"></i>
+                            <span>40 dk</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item" data-aos="fade-up" data-aos-delay="400">
+                <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836" alt="Izgara Köfte" class="menu-image">
+                <div class="menu-content">
+                    <div class="menu-title">
+                        <span>Fırın Tavuk</span>
+                        <span class="menu-price">₺90</span>
+                    </div>
+                    <p class="menu-description">Baharatlarla marine edilmiş, fırında nar gibi kızarmış tavuk. Yanında patates ile servis edilir.</p>
+                    <div class="menu-details">
+                        <div class="detail-item">
+                            <i class="fas fa-drumstick-bite"></i>
+                            <span>Tavuk</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-clock"></i>
+                            <span>35 dk</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item" data-aos="fade-up" data-aos-delay="500">
+                <img src="https://images.unsplash.com/photo-1467003909585-2f8a72700288" alt="Izgara Köfte" class="menu-image">
+                <div class="menu-content">
+                    <div class="menu-title">
+                        <span>Et Sote</span>
+                        <span class="menu-price">₺110</span>
+                    </div>
+                    <p class="menu-description">Kuşbaşı dana eti, biber, domates ve baharatlarla sotelenerek hazırlanan nefis bir ana yemek.</p>
+                    <div class="menu-details">
+                        <div class="detail-item">
+                            <i class="fas fa-drumstick-bite"></i>
+                            <span>Dana</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-clock"></i>
+                            <span>25 dk</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tema Değiştirme Butonu -->
+    <button class="theme-toggle" aria-label="Tema Değiştir">
+        <i class="fas fa-moon"></i>
+    </button>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // AOS Animasyon Kütüphanesi Başlatma
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+
+        // Mobil Menü
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            hamburger.querySelector('i').classList.toggle('fa-bars');
+            hamburger.querySelector('i').classList.toggle('fa-times');
+        });
+
+        // Tema Değiştirme Sistemi
+        const themeToggle = document.querySelector('.theme-toggle');
+        const themeIcon = themeToggle.querySelector('i');
+        const html = document.documentElement;
+
+        // Sistem temasını kontrol et
+        function checkSystemTheme() {
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                setTheme('dark');
+            } else {
+                setTheme('light');
+            }
+        }
+
+        // Tema değiştirme fonksiyonu
+        function setTheme(theme) {
+            html.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+            
+            // İkon güncelleme
+            if (theme === 'dark') {
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            } else {
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+            }
+        }
+
+        // Tema değiştirme butonu tıklama olayı
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            setTheme(newTheme);
+        });
+
+        // Sayfa yüklendiğinde tema kontrolü
+        window.addEventListener('load', () => {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme) {
+                setTheme(savedTheme);
+            } else {
+                checkSystemTheme();
+            }
+        });
+
+        // Sistem teması değişikliğini dinle
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+            if (!localStorage.getItem('theme')) {
+                setTheme(e.matches ? 'dark' : 'light');
+            }
+        });
+    </script>
+</body>
+</html> 
